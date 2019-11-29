@@ -16,3 +16,8 @@ or
 `git clone https://github.com/m4ll0k/BurpSuite-Secret_Finder.git`
 
 - now open `Burp > Extender > Extensions > Add > set python and select file (SecretFinder.py)`
+
+Requirements
+--
+- jython
+- burpsuite
