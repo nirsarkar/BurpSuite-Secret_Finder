@@ -36,6 +36,7 @@ class BurpExtender(IBurpExtender, IScannerCheck):
     # add your regex here
     regexs = {
         'google_api' : 'AIza[0-9A-Za-z-_]{35}',
+        'google_captcha' : '6L[0-9A-Za-z-_]{38}',
         'google_oauth' : 'ya29\.[0-9A-Za-z\-_]+',
         'amazon_aws_access_key_id' : 'AKIA[0-9A-Z]{16}',
         'amazon_mws_auth_toke' : 'amzn\\.mws\\.[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}',
