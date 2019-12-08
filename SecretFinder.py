@@ -47,6 +47,8 @@ class BurpExtender(IBurpExtender, IScannerCheck):
         'authorization_api' : 'api[key|\s*]+[a-zA-Z0-9_\-]+',
         'mailgun_api_key' : 'key-[0-9a-zA-Z]{32}',
         'twilio_api_key' : 'SK[0-9a-fA-F]{32}',
+        'twilio_account_sid' : 'AC[a-zA-Z0-9_\-]{32}',
+        'twilio_app_sid' : 'AP[a-zA-Z0-9_\-]{32}',
         'paypal_braintree_access_token' : 'access_token\$production\$[0-9a-z]{16}\$[0-9a-f]{32}',
         'square_oauth_secret' : 'sq0csp-[ 0-9A-Za-z\-_]{43}',
         'square_access_token' : 'sqOatp-[0-9A-Za-z\-_]{22}',
@@ -56,7 +58,10 @@ class BurpExtender(IBurpExtender, IScannerCheck):
         'rsa_private_key' : '-----BEGIN RSA PRIVATE KEY-----',
         'ssh_dsa_private_key' : '-----BEGIN DSA PRIVATE KEY-----',
         'ssh_dc_private_key' : '-----BEGIN EC PRIVATE KEY-----',
-        'pgp_private_block' : '-----BEGIN PGP PRIVATE KEY BLOCK-----'
+        'pgp_private_block' : '-----BEGIN PGP PRIVATE KEY BLOCK-----',
+        'generic_api_key'  : '[api_key|api|apikey|api]+=+[a-zA-Z0-9_\-\*\.]+',
+        'generic_access_token' : '[access_token|token|access_tk|a_token|accesstoken]+=+[a-zA-Z0-9_\-\*\.]+',
+        ''
     }
 
     def doActiveScan(self, baseRequestResponse,pa,pb):
@@ -91,9 +96,9 @@ class BurpExtender(IBurpExtender, IScannerCheck):
 
         for reg in self.regexs.items():
             regex = r"[:|=|\'|\"|\s*|`|´| |,|?=|\]|\|//|/\*}]("+reg[1]+r")[:|=|\'|\"|\s*|`|´| |,|?=|\]|\}|&|//|\*/]"
-            issuename = "SecretFinder: %s"%(reg[0].replace('_',' '))
+            issuename = "SecretFinder: %s"%(' '.join([x.title() for x in reg[0].split('_')]))
             issuelevel = "Information"
-            issuedetail = """Potential Secret Find: <b>$asset$</b>
+            issuedetail = """Potential Secret Find: <b>$regex$</b>
                          <br><br><b>Note:</b> Please check manually before making any action."""
 
             tmp_issues = self._CustomScans.findRegEx(regex, issuename, issuelevel, issuedetail)
@@ -108,20 +113,21 @@ class CustomScans:
     def __init__(self, requestResponse, callbacks):
         self._requestResponse = requestResponse
         self._callbacks = callbacks
-
         self._helpers = self._callbacks.getHelpers()
-
-        self._params = self._helpers.analyzeRequest(requestResponse.getRequest()).getParameters()
+        self._mime_type = self._helpers.analyzeResponse(self._requestResponse.getResponse()).getStatedMimeType()
         return
 
     def findRegEx(self, regex, issuename, issuelevel, issuedetail):
+        print(self._mime_type)
+        if '.js' in str(self._requestResponse.getUrl()):
+            print(self._mime_type)
+            print(self._requestResponse.getUrl())
         scan_issues = []
         offset = array('i', [0, 0])
         response = self._requestResponse.getResponse()
         responseLength = len(response)
 
         if self._callbacks.isInScope(self._helpers.analyzeRequest(self._requestResponse).getUrl()):
-            print(regex)
             myre = re.compile(regex, re.VERBOSE)
             encoded_resp=binascii.b2a_base64(self._helpers.bytesToString(response))
             decoded_resp=base64.b64decode(encoded_resp)
@@ -143,7 +149,7 @@ class CustomScans:
                     scan_issues.append(ScanIssue(self._requestResponse.getHttpService(),
                         self._helpers.analyzeRequest(self._requestResponse).getUrl(),
                         [self._callbacks.applyMarkers(self._requestResponse, None, offsets)],
-                        issuename, issuelevel, issuedetail.replace("$asset$", ref)))
+                        issuename, issuelevel, issuedetail.replace("$regex$", ref)))
                 except:
                     continue
         return (scan_issues)
