@@ -74,7 +74,7 @@ class BurpExtender(IBurpExtender, IScannerCheck):
             issuename = "SecretFinder: %s"%(reg[0].replace('_',' '))
             issuelevel = "Information"
             issuedetail = """Potential Secret Find: <b>$asset$</b>
-                         <br><br><b>Note:</b> Please check manually before making any action."""
+                         <br><br><b>Note:</b> Please note that some of these issues could be false positives, a manual review is recommended."""
 
             tmp_issues = self._CustomScans.findRegEx(regex, issuename, issuelevel, issuedetail)
             scan_issues = scan_issues + tmp_issues
