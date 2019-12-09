@@ -58,10 +58,7 @@ class BurpExtender(IBurpExtender, IScannerCheck):
         'rsa_private_key' : '-----BEGIN RSA PRIVATE KEY-----',
         'ssh_dsa_private_key' : '-----BEGIN DSA PRIVATE KEY-----',
         'ssh_dc_private_key' : '-----BEGIN EC PRIVATE KEY-----',
-        'pgp_private_block' : '-----BEGIN PGP PRIVATE KEY BLOCK-----',
-        'generic_api_key'  : '[api_key|api|apikey|api]+=+[a-zA-Z0-9_\-\*\.]+',
-        'generic_access_token' : '[access_token|token|access_tk|a_token|accesstoken]+=+[a-zA-Z0-9_\-\*\.]+',
-        ''
+        'pgp_private_block' : '-----BEGIN PGP PRIVATE KEY BLOCK-----'
     }
 
     def doActiveScan(self, baseRequestResponse,pa,pb):
