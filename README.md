@@ -2,6 +2,9 @@
 
 A Burp Suite extension to help pentesters to discover a apikeys,accesstoken and more sensitive data using a regolar expressions. SecretFinder process any HTTP response (support javascript file) and support Passive and Active scan. This extension has been developed by M'hamed Outaadi (@m4ll0k).
 
+Example
+---
+
 ![main](https://i.imgur.com/unM06Hg.png)
 
 
