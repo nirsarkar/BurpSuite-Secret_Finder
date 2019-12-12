@@ -1,7 +1,6 @@
-## Burp Suite - Secret Finder (beta v.0.1)
-Burp Suite extension to discover a apikey/tokens  from HTTP response.
+## Burp Suite - Secret Finder (beta v0.1)
 
-__Note__: _for any suggestions send me a pull request or a e-mail! :)_
+A Burp Suite extension to help pentesters to discover a apikeys,accesstoken and more sensitive data using a regolar expressions. SecretFinder process any HTTP response (support javascript file) and support Passive and Active scan. This extension has been developed by M'hamed Outaadi (@m4ll0k).
 
 ![main](https://i.imgur.com/unM06Hg.png)
 
