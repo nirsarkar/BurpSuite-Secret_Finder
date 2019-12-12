@@ -4,7 +4,8 @@ A Burp Suite extension to help pentesters to discover a apikeys,accesstoken and 
 
 Add RegEx
 ---
-- Download SecretFinder and Open it with any editor
+- Download SecretFinder and open it with any editor
+- Now add your regex and save the file 
 
 ![img](https://i.imgur.com/LBtfhkt.png)
 
