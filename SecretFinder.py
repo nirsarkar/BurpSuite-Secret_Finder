@@ -148,7 +148,7 @@ class CustomScans:
                     scan_issues.append(ScanIssue(self._requestResponse.getHttpService(),
                         self._helpers.analyzeRequest(self._requestResponse).getUrl(),
                         [self._callbacks.applyMarkers(self._requestResponse, None, offsets)],
-                        issuename, issuelevel, issuedetail.replace("%%regex%%", ref)))
+                        issuename, issuelevel, issuedetail.replace(r"%%regex%%", ref)))
                 except:
                     continue
         return (scan_issues)
