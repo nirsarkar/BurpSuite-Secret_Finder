@@ -60,6 +60,11 @@ class BurpExtender(IBurpExtender, IScannerCheck):
         'ssh_dc_private_key' : '-----BEGIN EC PRIVATE KEY-----',
         'pgp_private_block' : '-----BEGIN PGP PRIVATE KEY BLOCK-----'
     }
+    regex = r"[:|=|\'|\"|\s*|`|´| |,|?=|\]|\|//|/\*}](%%regex%%)[:|=|\'|\"|\s*|`|´| |,|?=|\]|\}|&|//|\*/]"
+    issuename = "SecretFinder: %s"
+    issuelevel = "Information"
+    issuedetail = r"""Potential Secret Find: <b>%%regex%%</b>
+    <br><br><b>Note:</b> Please note that some of these issues could be false positives, a manual review is recommended."""
 
     def doActiveScan(self, baseRequestResponse,pa,pb):
         scan_issues = []
@@ -69,14 +74,12 @@ class BurpExtender(IBurpExtender, IScannerCheck):
 
 
         for reg in self.regexs.items():
-            print(reg[0])
-            regex = r"[:|=|\'|\"|\s*|`|´| |,|?=|\]|\|//|/\*}]("+reg[1]+r")[:|=|\'|\"|\s*|`|´| |,|?=|\]|\}|&|//|\*/]"
-            issuename = "SecretFinder: %s"%(reg[0].replace('_',' '))
-            issuelevel = "Information"
-            issuedetail = """Potential Secret Find: <b>$asset$</b>
-                         <br><br><b>Note:</b> Please note that some of these issues could be false positives, a manual review is recommended."""
-
-            tmp_issues = self._CustomScans.findRegEx(regex, issuename, issuelevel, issuedetail)
+            tmp_issues = self._CustomScans.findRegEx(
+                BurpExtender.regex.replace(r'%%regex%%',reg[1]), 
+                BurpExtender.issuename%(' '.join([x.title() for x in reg[0].split('_')])),
+                BurpExtender.ssuelevel, 
+                BurpExtender.issuedetail
+                )
             scan_issues = scan_issues + tmp_issues
 
         if len(scan_issues) > 0:
@@ -92,13 +95,12 @@ class BurpExtender(IBurpExtender, IScannerCheck):
 
 
         for reg in self.regexs.items():
-            regex = r"[:|=|\'|\"|\s*|`|´| |,|?=|\]|\|//|/\*}]("+reg[1]+r")[:|=|\'|\"|\s*|`|´| |,|?=|\]|\}|&|//|\*/]"
-            issuename = "SecretFinder: %s"%(' '.join([x.title() for x in reg[0].split('_')]))
-            issuelevel = "Information"
-            issuedetail = """Potential Secret Find: <b>$regex$</b>
-                         <br><br><b>Note:</b> Please note that some of these issues could be false positives, a manual review is recommended."""
-
-            tmp_issues = self._CustomScans.findRegEx(regex, issuename, issuelevel, issuedetail)
+            tmp_issues = self._CustomScans.findRegEx(
+                BurpExtender.regex.replace(r'%%regex%%',reg[1]),
+                BurpExtender.issuename%(' '.join([x.title() for x in reg[0].split('_')])), 
+                BurpExtender.issuelevel,
+                BurpExtender.issuedetail
+                )
             scan_issues = scan_issues + tmp_issues
 
         if len(scan_issues) > 0:
