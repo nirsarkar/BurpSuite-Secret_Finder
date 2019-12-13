@@ -58,7 +58,8 @@ class BurpExtender(IBurpExtender, IScannerCheck):
         'rsa_private_key' : '-----BEGIN RSA PRIVATE KEY-----',
         'ssh_dsa_private_key' : '-----BEGIN DSA PRIVATE KEY-----',
         'ssh_dc_private_key' : '-----BEGIN EC PRIVATE KEY-----',
-        'pgp_private_block' : '-----BEGIN PGP PRIVATE KEY BLOCK-----'
+        'pgp_private_block' : '-----BEGIN PGP PRIVATE KEY BLOCK-----',
+        'json_web_token' : 'ey[A-Za-z0-9_-]*\.[A-Za-z0-9._-]*|ey[A-Za-z0-9_\/+-]*\.[A-Za-z0-9._\/+-]*'
     }
     regex = r"[:|=|\'|\"|\s*|`|´| |,|?=|\]|\|//|/\*}](%%regex%%)[:|=|\'|\"|\s*|`|´| |,|?=|\]|\}|&|//|\*/]"
     issuename = "SecretFinder: %s"
