@@ -67,7 +67,7 @@ class BurpExtender(IBurpExtender, IScannerCheck):
     issuedetail = r"""Potential Secret Find: <b>%%regex%%</b>
     <br><br><b>Note:</b> Please note that some of these issues could be false positives, a manual review is recommended."""
 
-    def doActiveScan(self, baseRequestResponse,pa,pb):
+    def doActiveScan(self, baseRequestResponse,pa):
         scan_issues = []
         tmp_issues = []
 
