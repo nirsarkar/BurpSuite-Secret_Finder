@@ -40,7 +40,7 @@ class BurpExtender(IBurpExtender, IScannerCheck):
         'google_oauth' : 'ya29\.[0-9A-Za-z\-_]+',
         'amazon_aws_access_key_id' : 'AKIA[0-9A-Z]{16}',
         'amazon_mws_auth_toke' : 'amzn\\.mws\\.[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}',
-        'amazonaws_url' : 's3\.amazonaws.com[/]+|[a-zA-Z0-9_-]*\.s3\.amazonaws.com',
+        'amazon_aws_url' : 's3\.amazonaws.com[/]+|[a-zA-Z0-9_-]*\.s3\.amazonaws.com',
         'facebook_access_token' : 'EAACEdEose0cBA[0-9A-Za-z]+',
         'authorization_basic' : 'basic\s*[a-zA-Z0-9=:_\+\/-]+',
         'authorization_bearer' : 'bearer\s*[a-zA-Z0-9_\-\.=:_\+\/]+',
