@@ -36,7 +36,7 @@ class BurpExtender(IBurpExtender, IScannerCheck):
     # add your regex here
     regexs = {
         'google_api' : 'AIza[0-9A-Za-z-_]{35}',
-        'google_captcha' : '6L[0-9A-Za-z-_]{38}',
+        'google_captcha' : '6L[0-9A-Za-z-_]{38}|^6[0-9a-zA-Z_-]{39}$',
         'google_oauth' : 'ya29\.[0-9A-Za-z\-_]+',
         'amazon_aws_access_key_id' : 'AKIA[0-9A-Z]{16}',
         'amazon_mws_auth_toke' : 'amzn\\.mws\\.[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}',
@@ -50,8 +50,8 @@ class BurpExtender(IBurpExtender, IScannerCheck):
         'twilio_account_sid' : 'AC[a-zA-Z0-9_\-]{32}',
         'twilio_app_sid' : 'AP[a-zA-Z0-9_\-]{32}',
         'paypal_braintree_access_token' : 'access_token\$production\$[0-9a-z]{16}\$[0-9a-f]{32}',
-        'square_oauth_secret' : 'sq0csp-[ 0-9A-Za-z\-_]{43}',
-        'square_access_token' : 'sqOatp-[0-9A-Za-z\-_]{22}',
+        'square_oauth_secret' : 'sq0csp-[ 0-9A-Za-z\-_]{43}|sq0[a-z]{3}-[0-9A-Za-z\-_]{22,43}',
+        'square_access_token' : 'sqOatp-[0-9A-Za-z\-_]{22}|EAAA[a-zA-Z0-9]{60}',
         'stripe_standard_api' : 'sk_live_[0-9a-zA-Z]{24}',
         'stripe_restricted_api' : 'rk_live_[0-9a-zA-Z]{24}',
         'github_access_token' : '[a-zA-Z0-9_-]*:[a-zA-Z0-9_\-]+@github\.com*',
