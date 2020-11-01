@@ -36,6 +36,14 @@ class BurpExtender(IBurpExtender, IScannerCheck):
     # add your regex here
     regexs = {
         'google_api' : 'AIza[0-9A-Za-z-_]{35}',
+        'google_cloud_platform_auth' : '[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}',
+        'google_cloud_platform_api' : '[A-Za-z0-9_]{21}--[A-Za-z0-9_]{8}',
+        'amazon_secret_key' : '[0-9a-zA-Z/+]{40}',
+        'gmail_auth_token' : '[0-9(+-[0-9A-Za-z_]{32}.apps.qooqleusercontent.com',
+        'github_auth_token' : '[0-9a-fA-F]{40}',
+        'Instagram_token' : '[0-9a-fA-F]{7}.[0-9a-fA-F]{32}',
+        'twitter_access_token' : '[1-9][ 0-9]+-(0-9a-zA-Z]{40}',
+        'firebase' : 'AAAA[A-Za-z0-9_-]{7}:[A-Za-z0-9_-]{140}',
         'google_captcha' : '6L[0-9A-Za-z-_]{38}|^6[0-9a-zA-Z_-]{39}$',
         'google_oauth' : 'ya29\.[0-9A-Za-z\-_]+',
         'amazon_aws_access_key_id' : 'AKIA[0-9A-Z]{16}',
